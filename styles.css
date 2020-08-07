@@ -52,13 +52,51 @@ p {
     margin-top: 20px;
 }
 
-#card {
+#cardOne.col {
     background-color: dodgerblue;
-    color: white;
-    padding: 25px;
-    height: 200px;
+    color: black;
+    
 }
 
+.card {
+    background-color: dodgerblue;
+}
+
+#dayOneHum {
+    font-size: 12px;
+}
+
+#dayOneTemp {
+    font-size: 12px;
+}
+#dayTwoHum {
+    font-size: 12px;
+}
+
+#dayTwoTemp {
+    font-size: 12px;
+}
+#dayThreeHum {
+    font-size: 12px;
+}
+
+#dayThreeTemp {
+    font-size: 12px;
+}
+#dayFourHum {
+    font-size: 12px;
+}
+
+#dayFourTemp {
+    font-size: 12px;
+}
+#dayFiveHum {
+    font-size: 12px;
+}
+
+#dayFiveTemp {
+    font-size: 12px;
+}
 
 #city-date {
     margin-top: 15px;
