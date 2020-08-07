@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">      
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Weather Dashboard</title>
@@ -12,11 +13,27 @@
     <header>
         Weather Dashboard
     </header>
-    <div class='row' id='search'>
-        <div class='col-md-4'>
-            <h3>Search For a City:</h3>
-            <input></input>
+    <div class='container'>
+        <div class='row' id='main'>
+            <div class='col-md-4'>
+                <div class='row' id='search'>
+                <h3>Search For a City:</h3>
+                <form class="search-bar">
+                    <input type="text" id='city-search' placeholder="Search.." name="search">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+                </div>
+                <div class='row' id='recent-searches'>
+                <!-- recently searched cities will be stored here -->
+                <ul class='search-history' id='search-history'></ul>
+                </div>
+            </div>
+            <div class='col-md-8'>
+                <div class='row' id='current-weather'></div>
+                <div class='row' id='forecast'>Forecast</div>
+            </div>
         </div>
     </div>
+    <script src='script.js'></script>
 </body>
 </html>
