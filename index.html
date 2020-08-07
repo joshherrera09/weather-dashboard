@@ -29,28 +29,83 @@
                 </div>
             </div>
             <div class='col-md-8'>
-                <div class='row' id='current-weather'></div>
-                <div class='row' id='forecast'>5-Day Forecast</div>
+                <div class='row'>
+                    <div class='col' id='current-weather'>
+                        <div class='row'>
+                            <h2 id='city-date'></h2>
+                            <div class='weather-icon'><img id='wicon' src='' alt='Weather icon'></div>
+                            <br>
+                            <br>
+                        </div>
+                        <div class='row'>
+                            <p id='temp'></p>
+                            <br>
+                        </div>
+                        <div class='row'>
+                            <p id='humidity'></p>
+                            <br>
+                        </div>
+                        <div class='row'>
+                            <p id='windspeed'></p>
+                            <br>
+                        </div>
+                        <div class='row'>
+                            <p id='uv-index'></p>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div class='row' id='forecast'>
+                    <h3>5 Day Forecast</h3>
+                </div>
+                <br>
+                <br>
                 <div class='row' id='fiveDay'>
                     <div class='col' id='cardOne'>
-                        <card id='card'>DAY-1</card>
+                        <card id='card'>
+                            <div class='row' id='date'></div>
+                            <div class='row'><img id ='dayOneIcon' src='' alt='weatherIcon'></div>
+                            <div class='row' id='dayOneTemp'></div>
+                            <div class='row' id='dayOneHum'></div>
+                        </card>
                     </div>
                     <div class='col' id='cardTwo'>
-                        <card id='card'>DAY-2</card>
+                        <card id='card'>
+                            <div class='row' id='date'></div>
+                            <div class='row'><img id ='dayTwoIcon' src='' alt='weatherIcon'></div>
+                            <div class='row' id='dayTwoTemp'></div>
+                            <div class='row' id='dayTwoHum'></div>
+                        </card>
                     </div>
                     <div class='col' id='cardThree'>
-                        <card id='card'>DAY-3</card>
+                        <card id='card'>
+                            <div class='row' id='date'></div>
+                            <div class='row'><img id ='dayThreeIcon' src='' alt='weatherIcon'></div>
+                            <div class='row' id='dayThreeTemp'></div>
+                            <div class='row' id='dayThreeHum'></div>
+                        </card>
                     </div>
                     <div class='col' id='cardFour'>
-                        <card id='card'>DAY-4</card>
+                        <card id='card'>
+                            <div class='row' id='date'></div>
+                            <div class='row'><img id ='dayFourIcon' src='' alt='weatherIcon'></div>
+                            <div class='row' id='dayFourTemp'></div>
+                            <div class='row' id='dayFourHum'></div>
+                        </card>
                     </div>
                     <div class='col' id='cardFive'>
-                        <card id='card'>DAY-5</card>
+                        <card id='card'>
+                            <div class='row' id='date'></div>
+                            <div class='row'><img id ='dayFiveIcon' src='' alt='weatherIcon'></div>
+                            <div class='row' id='dayFiveTemp'></div>
+                            <div class='row' id='dayFiveHum'></div>
+                        </card>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script src='script.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
 </body>
 </html>
