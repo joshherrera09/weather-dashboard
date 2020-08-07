@@ -21,7 +21,8 @@ function displayCityInfo() {
         var cityName = response.name;
         var humidity = response.main.humidity;
         var windSpeed = response.wind.speed;
-
+        
+        
         // console.log(cityName);
         // console.log(humidity);
         // console.log(windSpeed);
