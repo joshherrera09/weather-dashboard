@@ -52,15 +52,14 @@ p {
     margin-top: 20px;
 }
 
-#cardOne.col {
-    background-color: dodgerblue;
-    color: black;
-    
-}
 
+/* Style the counter cards */
 .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
     background-color: dodgerblue;
-}
+    
+  }
 
 #dayOneHum {
     font-size: 12px;
@@ -101,3 +100,12 @@ p {
 #city-date {
     margin-top: 15px;
 }
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
+  }
