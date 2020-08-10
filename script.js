@@ -1,11 +1,18 @@
-
+var city = 'San Diego';
+var citySearches = [];
 
 // 'GET' (city name, date, weather icon, temperature, humidity, windspeed)
 function displayCityInfo() {
-    // var city = $('.city-search').val();
-    var city = 'san diego';
-    var queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
     
+
+    // var city = 'san diego';
+    var queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
+
+    $('#city-date').empty();
+    $('#wicon').attr('src', '');
+    $('#temp').empty();
+    $('#humidity').empty();
+    $('#windspeed').empty();
 
     $.ajax({
         url:queryURL,
@@ -30,7 +37,7 @@ function displayCityInfo() {
 }
 // Funciton to fill the five day forecast
 function fiveDay () {
-    var city = 'san diego';
+    
     var queryURL = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&units=imperial&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
 
     $.ajax({
@@ -39,84 +46,99 @@ function fiveDay () {
     }).then(function(response) {
         console.log(response);
 
-        // First day of forecast
-        var dayOneTemp = response.list[5].main.temp;        
-        var dayOnehumidity = response.list[5].main.humidity;
-        var dayOneDate = moment().add(1,'days').format('DD/MM/YYYY');
-        var dayOneTemp = response.list[5].main.temp;
-        // var iconCode = response.weather[0].icon;
-        // var iconUrl = 'http://openweathermap.org/img/w/' + iconCode + '.png';
 
-        $('#dayOneDate').append(dayOneDate);
-        // $('#dayOneIcon').attr('src', iconUrl);
-        $('#dayOneTemp').append('Temp:' + dayOneTemp);
-        $('#dayOneHum').append('Humidity:' + dayOnehumidity + '%');
+        var list = response.list;
+        var date;
+        var iconUrl = 'http://openweathermap.org/img/w/';
+        var iconImage;
+        var temp;
+        var humidity;
+        var card;
+        var fiveDayContainer = $('#fiveDay');
+        var dayForecast;
+        fiveDayContainer.empty();
 
-        // Second day of forecast
-        var dayTwoTemp = response.list[12].main.temp;        
-        var dayTwoHumidity = response.list[12].main.humidity;
-        var dayTwoDate = moment().add(2,'days').format('DD/MM/YYYY');
-        var dayTwoTemp = response.list[12].main.temp;
-        // var iconCode = response.weather[0].icon;
-        // var iconUrl = 'http://openweathermap.org/img/w/' + iconCode + '.png';
+        for (let i = 0; i < list.length;) {
+           
+            dayForecast = list[i];
+            date = moment(dayForecast.dt_txt).format('MM/DD/YYYY');
+            iconImage = dayForecast.weather[0].icon + '.png';
+            temp = dayForecast.main.temp;
+            humidity = dayForecast.main.humidity;
+            card = `<div class='col' class='cardContainer'>
+                        <div class='card'>
+                            <h6 class='cardDate'>${date}</h6>
+                            <img class='icon' src='${iconUrl}${iconImage}' alt='Weather Icon'>
+                            <p class='temp'>Temp: ${temp}&deg;F</p>
+                            <p class='hum'>Humidity: ${humidity}</p>
+                        </div>
+                    </div>`;
 
-        $('#dayTwoDate').append(dayTwoDate);
-        // $('#dayOneIcon').attr('src', iconUrl);
-        $('#dayTwoTemp').append('Temp:' + dayTwoTemp);
-        $('#dayTwoHum').append('Humidity:' + dayTwoHumidity + '%');
+            fiveDayContainer.append(card);
 
-        // Third day of forecast
-        var dayThreeTemp = response.list[20].main.temp;        
-        var dayThreeHumidity = response.list[20].main.humidity;
-        var dayThreeDate = moment().add(3,'days').format('DD/MM/YYYY');
-        var dayThreeTemp = response.list[20].main.temp;
-        // var iconCode = response.weather[0].icon;
-        // var iconUrl = 'http://openweathermap.org/img/w/' + iconCode + '.png';
+           i = i + 8;
+            
+        }
 
-        $('#dayThreeDate').append(dayThreeDate);
-        // $('#dayOneIcon').attr('src', iconUrl);
-        $('#dayThreeTemp').append('Temp:' + dayThreeTemp);
-        $('#dayThreeHum').append('Humidity:' + dayThreeHumidity + '%');
-
-        // Fourth day of forecast
-        var dayFourTemp = response.list[28].main.temp;        
-        var dayFourHumidity = response.list[28].main.humidity;
-        var dayFourDate = moment().add(3,'days').format('DD/MM/YYYY');
-        var dayFourTemp = response.list[28].main.temp;
-        // var iconCode = response.weather[0].icon;
-        // var iconUrl = 'http://openweathermap.org/img/w/' + iconCode + '.png';
-
-        $('#dayFourDate').append(dayFourDate);
-        // $('#dayOneIcon').attr('src', iconUrl);
-        $('#dayFourTemp').append('Temp:' + dayFourTemp);
-        $('#dayFourHum').append('Humidity:' + dayFourHumidity + '%');
-
-        // Fifth day of forecast
-        var dayFiveTemp = response.list[36].main.temp;        
-        var dayFiveHumidity = response.list[36].main.humidity;
-        var dayFiveDate = moment().add(3,'days').format('DD/MM/YYYY');
-        var dayFiveTemp = response.list[36].main.temp;
-        // var iconCode = response.weather[0].icon;
-        // var iconUrl = 'http://openweathermap.org/img/w/' + iconCode + '.png';
-
-        $('#dayFiveDate').append(dayFiveDate);
-        // $('#dayOneIcon').attr('src', iconUrl);
-        $('#dayFiveTemp').append('Temp:' + dayFiveTemp);
-        $('#dayFiveHum').append('Humidity:' + dayFiveHumidity + '%');
         
     })
 }
 
 // UV index call
 
+function init() {
+    // read list of city searches from local storage
+    // and store values in citySearch []
+    // call 
+    $('#searchButton').on('click', function(){
+        
+        event.preventDefault();
+        city = $('#citySearch').val();
+        displayCityInfo();
+        fiveDay();
+    })
+}
 
+function renderSearchList() {
+    var listLength = (citySearch.length > 10) ? 10 : citySearch.length;
+    // Empty content of past city searches list
+    // Do a for-loop to iterate through citySearch[]
+    // and render the list of past city searches
+    // NOTE: limit the for-loop to no more than 10 cities
+    for (var i = 0; i < listLength; i++) {
+       // Render city
+    }
+  }
+  function init() {
+      // read list of city searches from local storage
+      // and store values in citySearch []
+     // call renderSearchList()
+      $('#searchButton').on('click', function(){
+          event.preventDefault();
+          city = $('#citySearch').val();
+          displayCityInfo();
+          fiveDay();
+          // Add new city to citySearch[] via push()
+          // Save to localStorage
+          // Call renderSearchList() again
+      })
+  }
+
+// citySearch storage function
+    // Push city to citySearch []
+    // set to local storage
+    // append to recent searches (for loop)
+        // iterate through citySearch array
+        // Limit to 10
+
+init();
 displayCityInfo();
 fiveDay();
 
 //TO-DO
 
+// Style icon in forecast
 // Fix cards(display date, style, display wether icon)
-// Finsish styling
+// Finsish styling icons in cards
 
-// Array to store recent searches
-// Funnction to store recent searches to local storage
+

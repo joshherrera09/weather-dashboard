@@ -61,45 +61,6 @@ p {
     
   }
 
-#dayOneHum {
-    font-size: 12px;
-}
-
-#dayOneTemp {
-    font-size: 12px;
-}
-#dayTwoHum {
-    font-size: 12px;
-}
-
-#dayTwoTemp {
-    font-size: 12px;
-}
-#dayThreeHum {
-    font-size: 12px;
-}
-
-#dayThreeTemp {
-    font-size: 12px;
-}
-#dayFourHum {
-    font-size: 12px;
-}
-
-#dayFourTemp {
-    font-size: 12px;
-}
-#dayFiveHum {
-    font-size: 12px;
-}
-
-#dayFiveTemp {
-    font-size: 12px;
-}
-
-#city-date {
-    margin-top: 15px;
-}
 
 /* Responsive columns */
 @media screen and (max-width: 600px) {
