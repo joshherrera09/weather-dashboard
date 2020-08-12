@@ -4,8 +4,6 @@ var citySearches = [];
 // 'GET' (city name, date, weather icon, temperature, humidity, windspeed)
 function displayCityInfo() {
     
-
-    // var city = 'san diego';
     var queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
 
     $('#city-date').empty();
@@ -44,8 +42,6 @@ function fiveDay () {
         url:queryURL,
         method: 'GET'
     }).then(function(response) {
-        console.log(response);
-
 
         var list = response.list;
         var date;
@@ -86,27 +82,40 @@ function fiveDay () {
 
 // UV index call
 
-function init() {
-    // read list of city searches from local storage
-    // and store values in citySearch []
-    // call 
-    $('#searchButton').on('click', function(){
-        
-        event.preventDefault();
-        city = $('#citySearch').val();
-        displayCityInfo();
-        fiveDay();
-    })
+function uvIndex() {
+    var queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
+    $.ajax({
+        url: queryURL,
+        method: 'GET'
+    }).then(function(response) {
+        if (!response) {
+           console.log('ERROR: could not fetch current weather for ' + city);
+           return;
+        }
+        var coordURL = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + response.coord.lat + '&lon=' + response.coord.lon + '&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
+        $.ajax({
+            url: coordURL,
+            method: 'GET'
+        }).then(function(response) {
+            $('#uvIndex').append('UV Index: ' + response.value);
+        })
+    });
 }
+
+
 
 function renderSearchList() {
     var listLength = (citySearch.length > 10) ? 10 : citySearch.length;
-    // Empty content of past city searches list
+    // Empty city search array
+    // citySearches.empty();
+    citySearch.empty();
     // Do a for-loop to iterate through citySearch[]
     // and render the list of past city searches
     // NOTE: limit the for-loop to no more than 10 cities
     for (var i = 0; i < listLength; i++) {
        // Render city
+       
+      
     }
   }
   function init() {
@@ -119,17 +128,16 @@ function renderSearchList() {
           displayCityInfo();
           fiveDay();
           // Add new city to citySearch[] via push()
+          citySearches.push(city);
+            console.log(citySearches);
+          
           // Save to localStorage
+          localStorage.setItem('citySearch', JSON.stringify(citySearches));
           // Call renderSearchList() again
+          renderSearchList();
       })
   }
 
-// citySearch storage function
-    // Push city to citySearch []
-    // set to local storage
-    // append to recent searches (for loop)
-        // iterate through citySearch array
-        // Limit to 10
 
 init();
 displayCityInfo();
