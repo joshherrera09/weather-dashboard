@@ -3,7 +3,7 @@ var citySearches = [];
 
 // 'GET' (city name, date, weather icon, temperature, humidity, windspeed)
 function displayCityInfo() {
-    
+    console.log(city);
     var queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
 
     $('#city-date').empty();
@@ -30,6 +30,10 @@ function displayCityInfo() {
         $('#humidity').append('Humidity: ' + humidity);
         $('#windspeed').append('Wind Speed: ' + windSpeed + ' MPH');
 
+        var lat = response.coord.lat;
+        var long = response.coord.lon;
+
+        uvIndex(lat, long);
 
     });
 }
@@ -62,9 +66,9 @@ function fiveDay () {
             temp = dayForecast.main.temp;
             humidity = dayForecast.main.humidity;
             card = `<div class='col' class='cardContainer'>
-                        <div class='card'>
+                        <div class='card bg-primary text-white text-center'>
                             <h6 class='cardDate'>${date}</h6>
-                            <img class='icon' src='${iconUrl}${iconImage}' alt='Weather Icon'>
+                            <img class='icon mx-auto' src='${iconUrl}${iconImage}' alt='Weather Icon'>
                             <p class='temp'>Temp: ${temp}&deg;F</p>
                             <p class='hum'>Humidity: ${humidity}</p>
                         </div>
@@ -82,24 +86,34 @@ function fiveDay () {
 
 // UV index call
 
-function uvIndex() {
-    var queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
-    $.ajax({
-        url: queryURL,
-        method: 'GET'
-    }).then(function(response) {
-        if (!response) {
-           console.log('ERROR: could not fetch current weather for ' + city);
-           return;
-        }
-        var coordURL = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + response.coord.lat + '&lon=' + response.coord.lon + '&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
+function uvIndex(lat, long) {
+    // var queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
+    // $.ajax({
+    //     url: queryURL,
+    //     method: 'GET'
+    // }).then(function(response) {
+    //     if (!response) {
+    //        console.log('ERROR: could not fetch current weather for ' + city);
+    //        return;
+    //     }
+        var coordURL = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + lat + '&lon=' + long + '&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
         $.ajax({
             url: coordURL,
             method: 'GET'
         }).then(function(response) {
+            var uv = parseFloat(response.value);
+            $('#uvIndex').removeClass('moderate high extreme');
+            if (uv < 6) {
+                $('#uvIndex').addClass('moderate');
+            } else if (uv < 10) {
+                $('#uvIndex').addClass('high');
+            } else {
+                $('#uvIndex').addClass('extreme');
+            }
+            $('#uvIndex').empty();
             $('#uvIndex').append('UV Index: ' + response.value);
         })
-    });
+
 }
 
 
@@ -108,31 +122,40 @@ function renderSearchList() {
     var listLength = (citySearch.length > 10) ? 10 : citySearch.length;
     // Empty city search array
     // citySearches.empty();
-    citySearch.empty();
+    $('#searchHistory').empty();
     // Do a for-loop to iterate through citySearch[]
     // and render the list of past city searches
     // NOTE: limit the for-loop to no more than 10 cities
     for (var i = 0; i < listLength; i++) {
        // Render city
-       
-      
+        $('#searchHistory').append($('<li>').text(citySearch[i]));
+        
     }
   }
+
   function init() {
-      // read list of city searches from local storage
-      // and store values in citySearch []
-     // call renderSearchList()
-      $('#searchButton').on('click', function(){
+    // read list of city searches from local storage
+    // and store values in citySearch []
+    // call renderSearchList()
+    citySearch = JSON.parse(localStorage.getItem('cities'))
+    renderSearchList();
+    $('#searchHistory').on('click', function(e) {
+        console.log(e.target.textContent);
+        city = e.target.textContent;
+        displayCityInfo();
+        fiveDay();
+    })
+      $('#searchBar').on('submit', function(){
           event.preventDefault();
           city = $('#citySearch').val();
           displayCityInfo();
           fiveDay();
           // Add new city to citySearch[] via push()
-          citySearches.push(city);
-            console.log(citySearches);
+          citySearch.push(city);
+          console.log(citySearch);
           
           // Save to localStorage
-          localStorage.setItem('citySearch', JSON.stringify(citySearches));
+          localStorage.setItem('cities', JSON.stringify(citySearch));
           // Call renderSearchList() again
           renderSearchList();
       })
@@ -142,6 +165,7 @@ function renderSearchList() {
 init();
 displayCityInfo();
 fiveDay();
+renderSearchList();
 
 //TO-DO
 

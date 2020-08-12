@@ -58,6 +58,11 @@ p {
     background-color: dodgerblue;
   }
 
+.icon {
+    height: 50px;
+    width: 50px;
+}
+
 
 /* Responsive columns */
 @media screen and (max-width: 600px) {
