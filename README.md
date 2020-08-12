@@ -22,6 +22,5 @@ Dynamic weather dashboard
  
  # Link
  
- 
- 
  # Screen Shot of App
+![screenshot](https://user-images.githubusercontent.com/61304861/89985306-b830c900-dc2f-11ea-988e-55318100c5c0.png)
