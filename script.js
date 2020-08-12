@@ -37,6 +37,7 @@ function displayCityInfo() {
 
     });
 }
+
 // Funciton to fill the five day forecast
 function fiveDay () {
     
@@ -87,15 +88,7 @@ function fiveDay () {
 // UV index call
 
 function uvIndex(lat, long) {
-    // var queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
-    // $.ajax({
-    //     url: queryURL,
-    //     method: 'GET'
-    // }).then(function(response) {
-    //     if (!response) {
-    //        console.log('ERROR: could not fetch current weather for ' + city);
-    //        return;
-    //     }
+
         var coordURL = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + lat + '&lon=' + long + '&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
         $.ajax({
             url: coordURL,
@@ -115,8 +108,6 @@ function uvIndex(lat, long) {
         })
 
 }
-
-
 
 function renderSearchList() {
     var listLength = (citySearch.length > 10) ? 10 : citySearch.length;
@@ -167,10 +158,5 @@ displayCityInfo();
 fiveDay();
 renderSearchList();
 
-//TO-DO
-
-// Style icon in forecast
-// Fix cards(display date, style, display wether icon)
-// Finsish styling icons in cards
 
 

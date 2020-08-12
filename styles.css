@@ -63,6 +63,23 @@ p {
     width: 50px;
 }
 
+.moderate {
+    background-color: green;
+    color: white;
+    padding: 5px;
+}
+
+.high {
+    background-color: gold;
+    color: black;
+    padding: 5px;
+}
+
+.extreme {
+    background-color: red;
+    color: white;
+    padding: 5px;
+}
 
 /* Responsive columns */
 @media screen and (max-width: 600px) {
