@@ -21,6 +21,6 @@ Dynamic weather dashboard
  * Lastly I am still in the learning process of using local storage.
  
  # Link
- 
+ [Weather Dashboard](https://joshherrera09.github.io/weather-dashboard/)
  # Screen Shot of App
 ![screenshot](https://user-images.githubusercontent.com/61304861/89985306-b830c900-dc2f-11ea-988e-55318100c5c0.png)
