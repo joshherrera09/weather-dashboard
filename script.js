@@ -90,7 +90,7 @@ function fiveDay () {
 
 function uvIndex(lat, long) {
 
-        var coordURL = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + lat + '&lon=' + long + '&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
+        var coordURL = 'https://api.openweathermap.org/data/2.5/uvi?lat=' + lat + '&lon=' + long + '&appid=99adabcd9b9526ae2fc8e7bbc24f5de4';
         $.ajax({
             url: coordURL,
             method: 'GET'
