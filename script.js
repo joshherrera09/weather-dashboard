@@ -154,8 +154,10 @@ function renderSearchList() {
   }
 
 
-init();
-displayCityInfo();
-fiveDay();
-renderSearchList();
 
+$(document).ready(function() {
+    init();
+    displayCityInfo();
+    fiveDay();
+    renderSearchList();
+})
