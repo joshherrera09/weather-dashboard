@@ -129,7 +129,7 @@ function renderSearchList() {
     // read list of city searches from local storage
     // and store values in citySearch []
     // call renderSearchList()
-    citySearches = JSON.parse(localStorage.getItem('cities'))
+    citySearches = JSON.parse(localStorage.getItem('cities')) || [];
     renderSearchList();
     $('#searchHistory').on('click', function(e) {
         console.log(e.target.textContent);
