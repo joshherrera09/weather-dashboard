@@ -49,6 +49,7 @@ function fiveDay () {
     }).then(function(response) {
 
         var list = response.list;
+        console.log(list);
         var date;
         var iconUrl = 'http://openweathermap.org/img/w/';
         var iconImage;
@@ -110,7 +111,7 @@ function uvIndex(lat, long) {
 }
 
 function renderSearchList() {
-    var listLength = (citySearch.length > 10) ? 10 : citySearch.length;
+    var listLength = (citySearches.length > 10) ? 10 : citySearches.length;
     // Empty city search array
     // citySearches.empty();
     $('#searchHistory').empty();
@@ -119,7 +120,7 @@ function renderSearchList() {
     // NOTE: limit the for-loop to no more than 10 cities
     for (var i = 0; i < listLength; i++) {
        // Render city
-        $('#searchHistory').append($('<li>').text(citySearch[i]));
+        $('#searchHistory').append($('<li>').text(citySearches[i]));
         
     }
   }
@@ -128,7 +129,7 @@ function renderSearchList() {
     // read list of city searches from local storage
     // and store values in citySearch []
     // call renderSearchList()
-    citySearch = JSON.parse(localStorage.getItem('cities'))
+    citySearches = JSON.parse(localStorage.getItem('cities'))
     renderSearchList();
     $('#searchHistory').on('click', function(e) {
         console.log(e.target.textContent);
@@ -142,11 +143,11 @@ function renderSearchList() {
           displayCityInfo();
           fiveDay();
           // Add new city to citySearch[] via push()
-          citySearch.push(city);
-          console.log(citySearch);
+          citySearches.push(city);
+          console.log(citySearches);
           
           // Save to localStorage
-          localStorage.setItem('cities', JSON.stringify(citySearch));
+          localStorage.setItem('cities', JSON.stringify(citySearches));
           // Call renderSearchList() again
           renderSearchList();
       })
